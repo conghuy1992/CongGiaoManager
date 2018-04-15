@@ -1,0 +1,16 @@
+CREATE TABLE nhatho_districts(
+id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+name TEXT NOT NULL,
+id_province INT,
+status INT,
+create_time TIMESTAMP
+) 
+
+
+CREATE TABLE nhatho_ward(
+id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+name TEXT NOT NULL,
+id_districts INT,
+status INT,
+create_time TIMESTAMP
+) 

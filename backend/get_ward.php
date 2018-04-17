@@ -7,7 +7,8 @@
 $response = array();
 
 // include db connect class
-require_once __DIR__ . '/db_connect.php';
+require_once __DIR__ . '/common/db_connect.php';
+require_once __DIR__ . '/common/db_config.php';
 
 // connecting to db
 $db = new DB_CONNECT();
@@ -17,9 +18,8 @@ $http_status="http_status";
 // check for post data
 if (isset($_POST["id_districts"])) {    
     $id_districts = $_POST['id_districts'];    
-    $sql = "SELECT *
-    FROM nhatho_ward 
-    WHERE id_districts = '" . mysql_real_escape_string($id_districts) . "'
+    $sql = "SELECT * FROM " .WARD_TABLE. 
+    " WHERE id_districts = '" . mysql_real_escape_string($id_districts) . "'
 	ORDER BY name ASC ";
     
     $result = mysql_query($sql) or die(mysql_error());

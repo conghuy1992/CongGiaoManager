@@ -17,13 +17,14 @@ import com.conghuy.conggiaomanager.model.ProvinceDto
 class AddressView : LinearLayout, View.OnClickListener {
     val TAG = "AddressView"
     var spinner: Spinner? = null
-    var tvNodata:TextView?=null
+    var tvNodata: TextView? = null
     var btnReload: Button? = null
     var progressBar: ProgressBar? = null
     var con: Context? = null
     var callBack: AddressSelectCallBack? = null
     var url: String? = null
     var id_address: Int = 0
+
     constructor(context: Context) : super(context) {
         init(context)
     }
@@ -42,11 +43,14 @@ class AddressView : LinearLayout, View.OnClickListener {
         spinner = findViewById<View>(R.id.spinner) as Spinner
         btnReload = findViewById<View>(R.id.btnReload) as Button
         progressBar = findViewById<View>(R.id.progressBar) as ProgressBar
-        tvNodata= findViewById<View>(R.id.tvNodata) as TextView
+        tvNodata = findViewById<View>(R.id.tvNodata) as TextView
 
         btnReload?.setOnClickListener(this)
-        showBtnReload(false)
         showTextNodata(false)
+        showSpinner(false)
+        showBtnReload(false)
+        showLoading(false)
+
         if (url.equals(Statics.get_province)) {
             callApi()
         }
@@ -63,10 +67,18 @@ class AddressView : LinearLayout, View.OnClickListener {
         return list!![index]
     }
 
+    fun resetData() {
+        if (list != null && list!!.isNotEmpty() && adapter != null) {
+            list?.clear()
+            adapter?.notifyDataSetChanged()
+        }
+    }
+
+
     fun initAdapter() {
-        val adapter = ArrayAdapter<ProvinceDto>(con,
+        adapter = ArrayAdapter<ProvinceDto>(con,
                 android.R.layout.simple_spinner_item, list)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        adapter?.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner?.adapter = adapter
 
         spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -82,14 +94,15 @@ class AddressView : LinearLayout, View.OnClickListener {
             }
         }
     }
-
-    var list: List<ProvinceDto>? = null
+    var adapter: ArrayAdapter<ProvinceDto>? = null
+    var list: MutableList<ProvinceDto>? = null
     var index = -1
     fun updateIdAddress(id: Int) {
         id_address = id
     }
 
     fun callApi() {
+        callBack?.startProcess(url)
         index = -1
         showTextNodata(false)
         showSpinner(false)
@@ -98,12 +111,12 @@ class AddressView : LinearLayout, View.OnClickListener {
         val params = HashMap<String, String>()
         if (url.equals(Statics.get_districts)) {
             params["id_province"] = "" + id_address
-        }else  if (url.equals(Statics.get_ward)) {
+        } else if (url.equals(Statics.get_ward)) {
             params["id_districts"] = "" + id_address
         }
         HttpRequest().getListAddress(con!!, params, object : ProvinceCallBack {
             override fun onSuccess(l: List<ProvinceDto>?) {
-                list = l
+                list = l as MutableList
                 showLoading(false)
                 initAdapter()
                 showSpinner(true)
@@ -124,13 +137,14 @@ class AddressView : LinearLayout, View.OnClickListener {
         }, url!!)
     }
 
-
     fun showTextNodata(flag: Boolean) {
         tvNodata?.visibility = if (flag) View.VISIBLE else View.GONE
     }
+
     fun showSpinner(flag: Boolean) {
         spinner?.visibility = if (flag) View.VISIBLE else View.GONE
     }
+
     fun showLoading(flag: Boolean) {
         progressBar?.visibility = if (flag) View.VISIBLE else View.GONE
     }

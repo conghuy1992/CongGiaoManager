@@ -1,29 +1,28 @@
 package com.conghuy.conggiaomanager.common
 
 import android.app.AlertDialog
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.graphics.*
 import android.os.Bundle
+import android.support.v4.app.FragmentManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.android.volley.VolleyError
 import com.conghuy.conggiaomanager.R
 
 
 import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 import org.json.JSONException
 import org.json.JSONObject
 import java.net.MalformedURLException
 import java.net.URL
 import java.text.DecimalFormat
+import java.util.*
 
 
 /**
@@ -36,7 +35,7 @@ object Utils {
         return context.resources.getString(id)
     }
 
-    fun showMsg(context: Context?, msg: String) {
+    fun showMsg(context: Context?, msg: String?) {
         if (context != null) {
             try {
                 Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
@@ -60,7 +59,7 @@ object Utils {
         return context.resources.getDimension(id).toInt()
     }
 
-    fun showTime(date: Long, defaultPattern: String): String {
+    fun formatTime(date: Long, defaultPattern: String): String {
         val simpleDateFormat = SimpleDateFormat(defaultPattern, Locale.getDefault())
         return simpleDateFormat.format(Date(date))
     }
@@ -123,7 +122,6 @@ object Utils {
             if (`object`.has("age_range"))
                 bundle.putString("age_range", `object`.getString("age_range"))
 
-
             try {
                 val profile_pic = URL("https://graph.facebook.com/$id/picture?width=200&height=150")
                 Log.d("profile_pic", profile_pic.toString() + "")
@@ -153,12 +151,49 @@ object Utils {
         var build = AlertDialog.Builder(context)
         build.setTitle(title)
         build.setMessage(msg)
-        build.setPositiveButton("OK",object :DialogInterface.OnClickListener{
+        build.setPositiveButton("OK", object : DialogInterface.OnClickListener {
             override fun onClick(p0: DialogInterface?, p1: Int) {
 
             }
 
         })
         build.create().show()
+    }
+
+    fun addFragment(fragmentManager: FragmentManager, addToBackStack: String?,
+                    resId: Int, fragment: android.support.v4.app.Fragment) {
+        val transaction = fragmentManager.beginTransaction()
+        if (addToBackStack != null && addToBackStack.trim { it <= ' ' }.isNotEmpty())
+            transaction.addToBackStack(addToBackStack)
+        transaction.replace(resId, fragment)
+        transaction.commit()
+    }
+
+    fun showDateDialog(context: Context, calendar: Calendar, callback: DateCallback) {
+        val dpd = DatePickerDialog(context,
+                DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                    val cal = Calendar.getInstance()
+                    cal.set(Calendar.YEAR, year)
+                    cal.set(Calendar.MONTH, monthOfYear)
+                    cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                    callback.onFinish(cal)
+                }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
+        dpd.show()
+    }
+
+    fun showTimeDialog(context: Context, calendar: Calendar, callback: DateCallback) {
+        val timePickerDialog = TimePickerDialog(context,
+                TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                    val cal = Calendar.getInstance()
+                    cal.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                    cal.set(Calendar.MINUTE, minute)
+                    callback.onFinish(cal)
+                }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false)
+        timePickerDialog.show()
+    }
+
+    fun getTime(context: Context, time: Long): String {
+        if (time > 0) return Utils.formatTime(time, Statics.DATE_FORMAT_HH_MM)
+        else return Utils.getMsg(context, R.string.dont_select)
     }
 }

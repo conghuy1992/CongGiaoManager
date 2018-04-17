@@ -1,9 +1,22 @@
+SELECT k.id,k.name, GROUP_CONCAT(d.name) as tenquan
+  FROM nhatho_province AS k
+  INNER JOIN nhatho_districts as d ON k.id = d.id_province
+  GROUP BY k.name
+
+CREATE TABLE nhatho_province(
+id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+name TEXT NOT NULL,
+status INT,
+create_time TIMESTAMP 
+) 
+
+
 CREATE TABLE nhatho_districts(
 id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 name TEXT NOT NULL,
 id_province INT,
 status INT,
-create_time TIMESTAMP
+create_time TIMESTAMP 
 ) 
 
 
@@ -11,6 +24,28 @@ CREATE TABLE nhatho_ward(
 id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 name TEXT NOT NULL,
 id_districts INT,
+status INT,
+create_time TIMESTAMP 
+) 
+
+
+CREATE TABLE nhatho_list_church(
+id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+name TEXT NOT NULL,
+id_province INT,
+id_districts INT,
+id_ward INT,
+status INT,
+create_time TIMESTAMP
+) 
+
+CREATE TABLE nhatho_open_time(
+id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+normal_day_morning TEXT NULL,
+normal_day_afternoon TEXT NULL,
+special_day_morning TEXT NULL,
+special_day_afternoon TEXT NULL,
+id_church INT,
 status INT,
 create_time TIMESTAMP
 ) 

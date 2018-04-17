@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Cong Giao Manager</string>
+    <string name="app_name">Công Giáo Manager</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -8,4 +8,10 @@
     <string name="action_settings">Settings</string>
     <string name="can_not_parse_response">Can not parse Response</string>
 
+    <string name="add_church">Thêm nhà thờ</string>
+    <string name="add_province">Thêm Tỉnh</string>
+    <string name="add_districts">Thêm Quận/ Huyện</string>
+    <string name="add_ward">Thêm Xã/ Phường</string>
+    <string name="insert">Thêm</string>
+    <string name="dont_select">Không có</string>
 </resources>

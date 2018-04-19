@@ -84,12 +84,13 @@ class ChurchFragment : Fragment(), AddressSelectCallBack {
         tvNodata?.visibility = if (flag) View.VISIBLE else View.GONE
     }
     fun showList(flag: Boolean) {
-        recyclerView?.visibility = if (flag) View.VISIBLE else View.GONE
+//        recyclerView?.visibility = if (flag) View.VISIBLE else View.GONE
     }
     fun get_church(params: HashMap<String, String>) {
         showLoading(true)
         showTextNodata(false)
         showList(false)
+        adapter?.update(ArrayList<ChurchDto>())
         HttpRequest().get_church(activity!!, params, object : ChurchCallBack {
             override fun onSuccess(list: List<ChurchDto>?) {
 //                Utils.showMsg(activity, "onSuccess")

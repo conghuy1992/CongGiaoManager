@@ -20,7 +20,7 @@ import com.conghuy.conggiaomanager.view.province.AddressView
 import com.conghuy.conggiaomanager.R.id.recyclerView
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import com.conghuy.conggiaomanager.model.TimeDto
+import com.conghuy.conggiaomanager.model.ChurchDto
 import com.google.gson.Gson
 import java.sql.Time
 
@@ -104,10 +104,10 @@ class AddChurchFragment : Fragment(), View.OnClickListener, AddressSelectCallBac
         layoutDistricts?.addView(districtsView)
         layoutWard?.addView(wardView)
 
-        var timeDtoList = ArrayList<TimeDto>()
-        timeDtoList.add(TimeDto(0, Statics.Church_title))
-        timeDtoList.add(TimeDto(0, Statics.Church_header))
-        timeDtoList.add(TimeDto(0, Statics.Church_plus))
+        var timeDtoList = ArrayList<ChurchDto>()
+        timeDtoList.add(ChurchDto(0, Statics.Church_title))
+        timeDtoList.add(ChurchDto(0, Statics.Church_header))
+        timeDtoList.add(ChurchDto(0, Statics.Church_plus))
 
         adapter = InsertChurchAdapter(context!!, timeDtoList)
         recyclerView = v.findViewById<View>(R.id.recyclerView) as RecyclerView
@@ -119,12 +119,12 @@ class AddChurchFragment : Fragment(), View.OnClickListener, AddressSelectCallBac
         btnInsert?.isEnabled = flag
     }
 
-    fun isHaveTime(obj: TimeDto): Boolean {
+    fun isHaveTime(obj: ChurchDto): Boolean {
         if ((obj.type == 0)
-                && (obj.timeOne != 0L
-                        || obj.timeTwo != 0L
-                        || obj.timeThree != 0L
-                        || obj.timeFour != 0L)) {
+                && (obj.normal_day_morning != 0L
+                        || obj.normal_day_afternoon != 0L
+                        || obj.special_day_morning != 0L
+                        || obj.special_day_afternoon != 0L)) {
             return true
         }
         return false
@@ -151,7 +151,7 @@ class AddChurchFragment : Fragment(), View.OnClickListener, AddressSelectCallBac
             Utils.showMsg(context, "ward null")
             return
         }
-        var listTime = ArrayList<TimeDto>()
+        var listTime = ArrayList<ChurchDto>()
         var list = adapter?.getTime()
         var i: Int = 0
         while (i < list!!.size) {
@@ -169,6 +169,7 @@ class AddChurchFragment : Fragment(), View.OnClickListener, AddressSelectCallBac
 
         enableBtnInsert(false)
         val params = HashMap<String, String>()
+        params["user_id"] = "" + PrefManager(activity!!)
         params["name"] = name
         params["id_districts"] = "" + districtsView?.getObject()?.id
         params["status"] = "" + PrefManager(activity!!).getUserType()
@@ -197,16 +198,17 @@ class AddChurchFragment : Fragment(), View.OnClickListener, AddressSelectCallBac
     }
 
 
-    fun insert_time_open(id_church: Int, list: ArrayList<TimeDto>) {
+    fun insert_time_open(id_church: Int, list: ArrayList<ChurchDto>) {
         if (list != null && list.size > 0) {
             var obj = list[0]
             val params = HashMap<String, String>()
+            params["user_id"] = "" + PrefManager(activity!!)
             params["id_church"] = "" + id_church
             params["status"] = "" + PrefManager(activity!!).getUserType()
-            params["normal_day_morning"] = "" + obj.timeOne
-            params["normal_day_afternoon"] = "" + obj.timeTwo
-            params["special_day_morning"] = "" + obj.timeThree
-            params["special_day_afternoon"] = "" + obj.timeFour
+            params["normal_day_morning"] = "" + obj.normal_day_morning
+            params["normal_day_afternoon"] = "" + obj.normal_day_afternoon
+            params["special_day_morning"] = "" + obj.special_day_morning
+            params["special_day_afternoon"] = "" + obj.special_day_afternoon
 
             Log.d(TAG,"insert_time_open params:"+ Gson().toJson(params))
             HttpRequest().getResponse(activity!!, params, object : ResponseStatusCallBack {

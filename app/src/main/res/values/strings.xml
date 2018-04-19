@@ -13,5 +13,7 @@
     <string name="add_districts">Thêm Quận/ Huyện</string>
     <string name="add_ward">Thêm Xã/ Phường</string>
     <string name="insert">Thêm</string>
-    <string name="dont_select">Không có</string>
+    <string name="dont_select">Chọn time</string>
+    <string name="list_church">Danh sách nhà thờ</string>
+    <string name="no_data">Không có dữ liệu</string>
 </resources>

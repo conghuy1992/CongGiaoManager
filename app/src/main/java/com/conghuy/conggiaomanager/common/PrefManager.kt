@@ -12,6 +12,7 @@ class PrefManager {
 
     // userType = 1 -> admin else normal user
     var userType = "userType"
+    var userId="userId"
 
     constructor() {}
     constructor(context: Context) {
@@ -31,5 +32,14 @@ class PrefManager {
 
     fun getUserType(): Int {
         return pref!!.getInt(userType, 0)
+    }
+
+    fun setUserId(s: Int) {
+        editor?.putInt(userId, s)
+        editor?.commit()
+    }
+
+    fun getUserId(): Int {
+        return pref!!.getInt(userId, 0)
     }
 }

@@ -8,20 +8,26 @@ import android.view.ViewGroup
 
 import com.conghuy.conggiaomanager.R
 import com.conghuy.conggiaomanager.common.Statics
+import com.conghuy.conggiaomanager.controller.insertChurch.vh.ChurchDetailsVH
 import com.conghuy.conggiaomanager.controller.insertChurch.vh.ChurchNormalVH
 import com.conghuy.conggiaomanager.controller.insertChurch.vh.HeaderVH
 import com.conghuy.conggiaomanager.controller.insertChurch.vh.PlusVH
-import com.conghuy.conggiaomanager.model.TimeDto
+import com.conghuy.conggiaomanager.model.ChurchDto
 
 class InsertChurchAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
     var context: Context? = null
-    var timeDtoList: MutableList<TimeDto>? = null
+    var timeDtoList: MutableList<ChurchDto>? = null
     var TAG = "InsertChurchAdapter"
 
     constructor() {}
-    constructor(context: Context, timeDtoList: MutableList<TimeDto>) {
+    constructor(context: Context, timeDtoList: MutableList<ChurchDto>) {
         this.context = context
         this.timeDtoList = timeDtoList
+    }
+
+    fun update(list: MutableList<ChurchDto>?) {
+        this.timeDtoList = list
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -38,6 +44,18 @@ class InsertChurchAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
             val v = LayoutInflater.from(parent.context).inflate(
                     R.layout.adapter_church_header, parent, false)
             vh = HeaderVH(v)
+        } else if (viewType == Statics.Church_title_details) {
+            val v = LayoutInflater.from(parent.context).inflate(
+                    R.layout.adapter_church_details, parent, false)
+            vh = HeaderVH(v)
+        } else if (viewType == Statics.Church_header_details) {
+            val v = LayoutInflater.from(parent.context).inflate(
+                    R.layout.adapter_church_header_details, parent, false)
+            vh = HeaderVH(v)
+        } else if (viewType == Statics.Church_details) {
+            val v = LayoutInflater.from(parent.context).inflate(
+                    R.layout.adapter_church_details, parent, false)
+            vh = ChurchDetailsVH(v, context!!, this)
         } else {
             val v = LayoutInflater.from(parent.context).inflate(
                     R.layout.adapter_church_normal, parent, false)
@@ -51,6 +69,8 @@ class InsertChurchAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (holder is ChurchNormalVH) {
             holder.handler(obj, position)
         } else if (holder is PlusVH) {
+            holder.handler(obj, position)
+        } else if (holder is ChurchDetailsVH) {
             holder.handler(obj, position)
         }
     }
@@ -69,14 +89,14 @@ class InsertChurchAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
 //        Log.d(TAG,"obj:"+Gson().toJson(obj))
 
         if (obj?.type == 0
-                && obj?.timeOne == 0L
-                && obj?.timeTwo == 0L
-                && obj?.timeThree == 0L
-                && obj?.timeFour == 0L) {
+                && obj?.normal_day_morning == 0L
+                && obj?.normal_day_afternoon == 0L
+                && obj?.special_day_morning == 0L
+                && obj?.special_day_afternoon == 0L) {
             return
         }
 
-        timeDtoList?.add(timeDtoList?.size!! - 1, TimeDto(0, 0))
+        timeDtoList?.add(timeDtoList?.size!! - 1, ChurchDto(0, 0))
         this.notifyDataSetChanged()
     }
 
@@ -84,25 +104,24 @@ class InsertChurchAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
         notifyItemChanged(index)
     }
 
-    fun getTime(): MutableList<TimeDto>? {
+    fun getTime(): MutableList<ChurchDto>? {
         return timeDtoList
     }
 
-    fun remove(obj: TimeDto) {
+    fun remove(obj: ChurchDto) {
         var i: Int = 0
         while (i < timeDtoList!!.size) {
             var dto = timeDtoList!![i]
             if (obj.type == 0
-                    && obj.timeOne == dto.timeOne
-                    && obj.timeTwo == dto.timeTwo
-                    && obj.timeThree == dto.timeThree
-                    && obj.timeFour == dto.timeFour)
-            {
+                    && obj.normal_day_morning == dto.normal_day_morning
+                    && obj.normal_day_afternoon == dto.normal_day_afternoon
+                    && obj.special_day_morning == dto.special_day_morning
+                    && obj.special_day_afternoon == dto.special_day_afternoon) {
                 timeDtoList?.removeAt(i)
                 notifyDataSetChanged()
                 break
             }
-                i++
+            i++
         }
     }
 }

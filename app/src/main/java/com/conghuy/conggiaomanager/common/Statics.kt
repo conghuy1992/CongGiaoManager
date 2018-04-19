@@ -57,10 +57,16 @@ interface Statics {
         val insert_ward = api + "insert_ward.php"
         val insert_church = api + "insert_church.php"
         val insert_time_open = api + "insert_time_open.php"
+        val get_church = api + "get_church.php"
 
 
+        val Church_insert_normal = 0
         val Church_header = 1
         val Church_plus = 2
         val Church_title = 3
+        val Church_details = 4
+        val Church_header_details = 5
+        val Church_title_details = 6
+        val Church_filter_province = 1
     }
 }

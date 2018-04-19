@@ -78,6 +78,7 @@ class AddDistrictsFragment : Fragment(), AddressSelectCallBack, View.OnClickList
 
         enableBtnAdd(false)
         val params = HashMap<String, String>()
+        params["user_id"] = "" + PrefManager(activity!!)
         params["name"] = name
         params["id_province"] = "" + id_province
         params["status"] = ""+ PrefManager(activity!!).getUserType()

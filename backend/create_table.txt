@@ -6,7 +6,8 @@ SELECT k.id,k.name, GROUP_CONCAT(d.name) as tenquan
 CREATE TABLE nhatho_province(
 id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 name TEXT NOT NULL,
-status INT,
+status INT NULL,
+user_id INT NULL,
 create_time TIMESTAMP 
 ) 
 
@@ -16,6 +17,7 @@ id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 name TEXT NOT NULL,
 id_province INT,
 status INT,
+user_id INT NULL,
 create_time TIMESTAMP 
 ) 
 
@@ -25,6 +27,7 @@ id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 name TEXT NOT NULL,
 id_districts INT,
 status INT,
+user_id INT NULL,
 create_time TIMESTAMP 
 ) 
 
@@ -36,6 +39,7 @@ id_province INT,
 id_districts INT,
 id_ward INT,
 status INT,
+user_id INT NULL,
 create_time TIMESTAMP
 ) 
 
@@ -47,5 +51,6 @@ special_day_morning TEXT NULL,
 special_day_afternoon TEXT NULL,
 id_church INT,
 status INT,
+user_id INT NULL,
 create_time TIMESTAMP
 ) 

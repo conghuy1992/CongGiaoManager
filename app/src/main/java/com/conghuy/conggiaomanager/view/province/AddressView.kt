@@ -7,10 +7,7 @@ import android.view.View
 import android.widget.*
 import com.android.volley.VolleyError
 import com.conghuy.conggiaomanager.R
-import com.conghuy.conggiaomanager.common.HttpRequest
-import com.conghuy.conggiaomanager.common.ProvinceCallBack
-import com.conghuy.conggiaomanager.common.Statics
-import com.conghuy.conggiaomanager.common.Utils
+import com.conghuy.conggiaomanager.common.*
 import com.conghuy.conggiaomanager.model.ProvinceDto
 
 
@@ -109,6 +106,7 @@ class AddressView : LinearLayout, View.OnClickListener {
         showBtnReload(false)
         showLoading(true)
         val params = HashMap<String, String>()
+        params["user_id"] = "" + PrefManager(context)
         if (url.equals(Statics.get_districts)) {
             params["id_province"] = "" + id_address
         } else if (url.equals(Statics.get_ward)) {
@@ -124,7 +122,6 @@ class AddressView : LinearLayout, View.OnClickListener {
 
             override fun onFail() {
                 showTextNodata(true)
-                Utils.showMsg(con, "No data")
                 showLoading(false)
             }
 

@@ -13,11 +13,12 @@ require_once __DIR__ . '/common/db_config.php';
 // connecting to db
 $db = new DB_CONNECT();
 $key = "list";
-	$message = "message";
-	$http_status="http_status";
+$message = "message";
+$http_status="http_status";
 // check for post data
-if (isset($_POST["id_province"])) {    
+if (isset($_POST["id_province"])&&isset($_POST["user_id"])) {    
 $id_province = $_POST['id_province'];    
+$user_id = $_POST['user_id'];    
 $sql = "SELECT * FROM " .DISTRICTS_TABLE. 
     " WHERE id_province = '" . mysql_real_escape_string($id_province) . "'
 	ORDER BY name ASC ";

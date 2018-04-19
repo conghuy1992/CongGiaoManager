@@ -96,6 +96,7 @@ class AddWardFragment : Fragment(), AddressSelectCallBack, View.OnClickListener 
 
         enableBtnAdd(false)
         val params = HashMap<String, String>()
+        params["user_id"] = "" + PrefManager(activity!!)
         params["name"] = name
         params["id_districts"] = "" + id_districts
         params["status"] = "" + PrefManager(activity!!).getUserType()

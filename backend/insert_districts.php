@@ -15,17 +15,17 @@ $response = array();
 	
 // check for required fields
 
-if (isset($_POST['name']) && isset($_POST['status']) && isset($_POST['id_province'])) {    
+if (isset($_POST['name']) && isset($_POST['status']) && isset($_POST['id_province'])&&isset($_POST["user_id"])) {    
     $name = $_POST['name'];
 	$status = $_POST['status'];
 	$id_province = $_POST['id_province'];
-	
+	$user_id = $_POST['user_id'];
     // connecting to db
     $db = new DB_CONNECT();
 	
     // mysql inserting a new row
     $result = mysql_query("INSERT INTO ".DISTRICTS_TABLE.
-	"(name, status,id_province) VALUES('$name', '$status','$id_province')");
+	"(name, status,id_province,user_id) VALUES('$name', '$status','$id_province','$user_id')");
 
     // check if row inserted or not
     if ($result) {

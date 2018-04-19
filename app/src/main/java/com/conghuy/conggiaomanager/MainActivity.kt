@@ -23,6 +23,7 @@ import com.conghuy.conggiaomanager.controller.leftMenu.LeftMenuAdapter
 import com.conghuy.conggiaomanager.controller.leftMenu.MenuCallBack
 import com.conghuy.conggiaomanager.controller.leftMenu.MenuDto
 import com.conghuy.conggiaomanager.controller.leftMenu.MenuEnum
+import com.conghuy.conggiaomanager.controller.listChurch.ChurchFragment
 
 
 class MainActivity : AppCompatActivity(),
@@ -90,6 +91,8 @@ class MainActivity : AppCompatActivity(),
         list.add(MenuDto(MenuEnum.ADD_PROVINCE, Utils.getMsg(context!!, R.string.add_province)))
         list.add(MenuDto(MenuEnum.ADD_DISTRICTS, Utils.getMsg(context!!, R.string.add_districts)))
         list.add(MenuDto(MenuEnum.ADD_WARD, Utils.getMsg(context!!, R.string.add_ward)))
+        list.add(MenuDto(MenuEnum.GET_CHURCH_FILTER_PROVINCE, Utils.getMsg(context!!, R.string.list_church)))
+
 
         adapter = LeftMenuAdapter(context!!, list!!, this)
         recyclerView = findViewById<View>(R.id.recyclerView) as RecyclerView
@@ -97,15 +100,23 @@ class MainActivity : AppCompatActivity(),
         recyclerView?.adapter = adapter
     }
 
+    fun setTitleMain(msg: String?) {
+        title = msg
+    }
+
     fun handlerMenuSelect(obj: MenuDto) {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
         }
+        setTitleMain(obj.title)
+        Utils.hideKeyboard(this)
         when (obj.anEnum) {
             MenuEnum.ADD_CHURCH -> addFragment(AddChurchFragment())
             MenuEnum.ADD_PROVINCE -> addFragment(AddProvinceFragment())
             MenuEnum.ADD_DISTRICTS -> addFragment(AddDistrictsFragment())
-            MenuEnum.ADD_WARD ->  addFragment(AddWardFragment())
+            MenuEnum.ADD_WARD -> addFragment(AddWardFragment())
+            MenuEnum.GET_CHURCH_FILTER_PROVINCE -> addFragment(ChurchFragment())
+
         }
     }
 }

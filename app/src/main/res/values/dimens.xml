@@ -7,4 +7,6 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="spinner_height">50dp</dimen>
     <dimen name="church_height">45dp</dimen>
+    <dimen name="border_radius">0.1dp</dimen>
+    <dimen name="text_padding">3dp</dimen>
 </resources>

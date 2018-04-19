@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/border_view"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.4"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvName"
+            style="@style/text_name"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvAddress"
+            style="@style/text_name" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="@dimen/church_height"
+        android:layout_weight="0.6"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv1"
+            style="@style/text_church"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:text="Sáng" />
+
+        <TextView
+            android:id="@+id/tv2"
+            style="@style/text_church"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:text="Chiều" />
+
+        <TextView
+            android:id="@+id/tv3"
+            style="@style/text_church"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:text="Sáng" />
+
+        <TextView
+            android:id="@+id/tv4"
+            style="@style/text_church"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:text="Chiều" />
+    </LinearLayout>
+
+</LinearLayout>

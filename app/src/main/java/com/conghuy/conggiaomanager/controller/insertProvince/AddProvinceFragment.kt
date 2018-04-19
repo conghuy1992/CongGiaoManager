@@ -55,6 +55,7 @@ class AddProvinceFragment : Fragment(), View.OnClickListener {
 
         enableBtnAdd(false)
         val params = HashMap<String, String>()
+        params["user_id"] = "" + PrefManager(activity!!)
         params["name"] = name
         params["status"] = ""+PrefManager(activity!!).getUserType()
 

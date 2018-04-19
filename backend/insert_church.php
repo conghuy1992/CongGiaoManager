@@ -15,6 +15,7 @@ require_once __DIR__ . '/common/db_config.php';
 // check for required fields
 
 if (isset($_POST['name']) 
+	&& isset($_POST["user_id"])
 	&& isset($_POST['status']) 
 	&& isset($_POST['id_districts']) 
 	&& isset($_POST['id_province']) 
@@ -25,14 +26,14 @@ if (isset($_POST['name'])
     $id_districts = $_POST['id_districts'];
     $id_province  = $_POST['id_province'];
     $id_ward      = $_POST['id_ward'];    
-    
+    $user_id = $_POST['user_id'];
     // connecting to db
     $db = new DB_CONNECT();
     
     // mysql inserting a new row
     $result = mysql_query("INSERT INTO " . CHURCH_TABLE .
-	"(name, status, id_districts, id_province, id_ward) 
-	VALUES('$name', '$status','$id_districts','$id_province','$id_ward')");
+	"(name, status, id_districts, id_province, id_ward, user_id) 
+	VALUES('$name', '$status','$id_districts','$id_province','$id_ward', '$user_id')");
     $last_id = mysql_insert_id();
     // check if row inserted or not
     if ($result) {		

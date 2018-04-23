@@ -35,6 +35,9 @@ class ChurchFragment : Fragment(), AddressSelectCallBack {
     var adapter: InsertChurchAdapter? = null
     var progressBar: ProgressBar? = null
     var tvNodata: TextView? = null
+    var tvName: TextView? = null
+    var tvAddress: TextView? = null
+    var v_2: View? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -67,6 +70,14 @@ class ChurchFragment : Fragment(), AddressSelectCallBack {
 
         progressBar = v.findViewById<View>(R.id.progressBar) as ProgressBar
         tvNodata = v.findViewById<View>(R.id.tvNodata) as TextView
+
+
+        v_2 = v.findViewById<View>(R.id.v_2) as View
+        tvName = v_2?.findViewById<View>(R.id.tvName) as TextView
+        tvAddress = v_2?.findViewById<View>(R.id.tvAddress) as TextView
+
+        tvAddress?.visibility = View.GONE
+        tvName?.text = Utils.getMsg(activity!!, R.string.address)
         showTextNodata(false)
         showLoading(false)
 
@@ -83,9 +94,11 @@ class ChurchFragment : Fragment(), AddressSelectCallBack {
     fun showTextNodata(flag: Boolean) {
         tvNodata?.visibility = if (flag) View.VISIBLE else View.GONE
     }
+
     fun showList(flag: Boolean) {
 //        recyclerView?.visibility = if (flag) View.VISIBLE else View.GONE
     }
+
     fun get_church(params: HashMap<String, String>) {
         showLoading(true)
         showTextNodata(false)
@@ -96,6 +109,7 @@ class ChurchFragment : Fragment(), AddressSelectCallBack {
 //                Utils.showMsg(activity, "onSuccess")
                 showTextNodata(false)
                 showLoading(false)
+
                 adapter?.update(list as MutableList)
                 showList(true)
             }

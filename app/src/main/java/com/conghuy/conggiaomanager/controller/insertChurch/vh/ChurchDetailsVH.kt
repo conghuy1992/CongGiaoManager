@@ -32,7 +32,7 @@ class ChurchDetailsVH(itemView: View, val context: Context, val adapter: InsertC
     }
 
     fun handler(obj: ChurchDto, index: Int) {
-        Log.d(TAG,"handler")
+        Log.d(TAG, "handler")
         tv1?.text = Utils.getTimeWithOutEmptyText(obj.normal_day_morning)
 
         tv2?.text = Utils.getTimeWithOutEmptyText(obj.normal_day_afternoon)
@@ -41,9 +41,12 @@ class ChurchDetailsVH(itemView: View, val context: Context, val adapter: InsertC
 
         tv4?.text = Utils.getTimeWithOutEmptyText(obj.special_day_afternoon)
 
-        tvName?.text = obj.church_name
 
-        tvAddress?.text = obj.ward_name + ", " + obj.districts_name + ", " + obj.province_name
+
+        if (obj.isShowTitle){
+            tvName?.text = obj.church_name
+            tvAddress?.text = obj.ward_name + ", " + obj.districts_name + ", " + obj.province_name
+        }
 
 //        tv1?.setOnClickListener {
 //            showTimeDialog(obj, index, 1)

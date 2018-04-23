@@ -1,10 +1,9 @@
 package com.conghuy.conggiaomanager.model
 
-class ChurchDto {
+class ChurchDto  {
     var http_status: Int = 0
     var message: String? = null
     var list: MutableList<ChurchDto>? = null
-
 
     var church_id: Int = 0
     var church_name: String? = null
@@ -20,14 +19,12 @@ class ChurchDto {
     var special_day_morning: Long = 0
     var special_day_afternoon: Long = 0
     var type: Int = 0
+    var isShowTitle: Boolean = true
+    var listChild: MutableList<ChurchDto>? = null
 
-
-    var timeOne: Long = 0
-    var timeTwo: Long = 0
-    var timeThree: Long = 0
-    var timeFour: Long = 0
     constructor()
     constructor(timeMillisecond: Long, type: Int) {
         this.type = type
     }
+
 }

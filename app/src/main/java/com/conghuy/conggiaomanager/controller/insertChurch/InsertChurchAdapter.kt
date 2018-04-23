@@ -8,10 +8,7 @@ import android.view.ViewGroup
 
 import com.conghuy.conggiaomanager.R
 import com.conghuy.conggiaomanager.common.Statics
-import com.conghuy.conggiaomanager.controller.insertChurch.vh.ChurchDetailsVH
-import com.conghuy.conggiaomanager.controller.insertChurch.vh.ChurchNormalVH
-import com.conghuy.conggiaomanager.controller.insertChurch.vh.HeaderVH
-import com.conghuy.conggiaomanager.controller.insertChurch.vh.PlusVH
+import com.conghuy.conggiaomanager.controller.insertChurch.vh.*
 import com.conghuy.conggiaomanager.model.ChurchDto
 
 class InsertChurchAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -56,6 +53,10 @@ class InsertChurchAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
             val v = LayoutInflater.from(parent.context).inflate(
                     R.layout.adapter_church_details, parent, false)
             vh = ChurchDetailsVH(v, context!!, this)
+        } else if (viewType == Statics.Church_details_group) {
+            val v = LayoutInflater.from(parent.context).inflate(
+                    R.layout.adapter_church_details_group, parent, false)
+            vh = ChurchDetailsGroupVH(v, context!!, this)
         } else {
             val v = LayoutInflater.from(parent.context).inflate(
                     R.layout.adapter_church_normal, parent, false)
@@ -66,13 +67,13 @@ class InsertChurchAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val obj = timeDtoList!![position]
-        if (holder is ChurchNormalVH) {
-            holder.handler(obj, position)
-        } else if (holder is PlusVH) {
-            holder.handler(obj, position)
-        } else if (holder is ChurchDetailsVH) {
-            holder.handler(obj, position)
+        when (holder) {
+            is ChurchNormalVH -> holder.handler(obj, position)
+            is PlusVH -> holder.handler(obj, position)
+            is ChurchDetailsVH -> holder.handler(obj, position)
+            is ChurchDetailsGroupVH -> holder.handler(obj, position)
         }
+
     }
 
     override fun getItemViewType(position: Int): Int {

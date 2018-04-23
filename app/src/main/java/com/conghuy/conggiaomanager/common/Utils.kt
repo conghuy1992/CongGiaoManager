@@ -25,6 +25,7 @@ import java.text.DecimalFormat
 import java.util.*
 import android.app.Activity
 import android.view.inputmethod.InputMethodManager
+import com.conghuy.conggiaomanager.model.ChurchDto
 
 
 /**
@@ -213,5 +214,31 @@ object Utils {
             view = View(activity)
         }
         imm!!.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    fun longInfo(TAG: String, str: String) {
+        if (str.length > 4000) {
+            Log.d(TAG, str.substring(0, 4000))
+            longInfo(TAG, str.substring(4000))
+        } else
+            Log.d(TAG, str)
+    }
+
+    fun cloneChurch(obj: ChurchDto): ChurchDto {
+        var dto = ChurchDto()
+        dto.church_name = obj.church_name
+        dto.church_id = obj.church_id
+        dto.id_province = obj.id_province
+        dto.province_name = obj.province_name
+        dto.id_districts = obj.id_districts
+        dto.districts_name = obj.districts_name
+        dto.id_ward = obj.id_ward
+        dto.ward_name = obj.ward_name
+        dto.open_time_id = obj.open_time_id
+        dto.normal_day_morning = obj.normal_day_morning
+        dto.normal_day_afternoon = obj.normal_day_afternoon
+        dto.special_day_morning = obj.special_day_morning
+        dto.special_day_afternoon = obj.special_day_afternoon
+        return dto
     }
 }

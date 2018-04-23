@@ -141,11 +141,52 @@ class HttpRequest {
                     }
                     if (obj!!.http_status == Statics.HTTP_SUCCESS
                             && obj.list != null && obj.list!!.isNotEmpty()) {
-                        obj!!.list?.add(0, ChurchDto(0, Statics.Church_title_details))
-                        obj!!.list?.add(0, ChurchDto(0, Statics.Church_header_details))
-                        for (i in 2 until obj.list!!.size) {
-                            obj.list!![i].type = Statics.Church_details
+//                        obj!!.list?.add(0, ChurchDto(0, Statics.Church_title_details))
+//                        obj!!.list?.add(0, ChurchDto(0, Statics.Church_header_details))
+
+                        // for display all address
+//                        for (i in 0 until obj.list!!.size) {
+//                            obj.list!![i].type = Statics.Church_details
+////                            obj.list!![i].isShowTitle = true
+//                            if (i > 0) {
+//                                if ((obj.list!![i].id_province == obj.list!![i - 1].id_province)
+//                                        && (obj.list!![i].church_name.equals(obj.list!![i - 1].church_name))
+//                                        && (obj.list!![i].id_districts == obj.list!![i - 1].id_districts)
+//                                        && (obj.list!![i].id_ward == obj.list!![i - 1].id_ward)) {
+//                                    obj.list!![i].isShowTitle = false
+//                                }
+//                            }
+//                        }
+
+                        var list = obj.list
+                        var i: Int = 0
+                        while (i < list!!.size) {
+                            list!![i].type = Statics.Church_details_group
+                            if (list[i].listChild == null) list[i].listChild = ArrayList<ChurchDto>()
+
+                            var dto = Utils.cloneChurch(list[i])
+                            list[i].listChild?.add(dto)
+
+                            if (i > 0) {
+                                if ((list[i].id_province == list[i - 1].id_province)
+                                        && (list[i].id_districts == list[i - 1].id_districts)
+                                        && (list[i].id_ward == list[i - 1].id_ward)
+                                        && (list[i].church_name.equals(list[i - 1].church_name))) {
+                                    list[i - 1].listChild?.add(list[i])
+                                    list.removeAt(i)
+                                    i--
+                                }
+                            }
+                            i++
                         }
+
+//                        for(i in 0 until list.size){
+//                            Log.d(TAG,"name:"+list[i].church_name)
+//                            Utils.longInfo("list convert", Gson().toJson(list[i]))
+//                        }
+
+
+
                         callBack.onSuccess(obj.list)
                     } else
                         callBack.onFail()
@@ -174,5 +215,4 @@ class HttpRequest {
         val requestQueue = Volley.newRequestQueue(context)
         requestQueue.add(stringRequest)
     }
-
 }

@@ -6,4 +6,6 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="color_divide">#abbccc</color>
     <color name="colorTrans">#00000000</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorPending">#0ed225</color>
 </resources>

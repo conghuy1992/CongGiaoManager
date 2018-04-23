@@ -7,6 +7,7 @@ class ChurchDto  {
 
     var church_id: Int = 0
     var church_name: String? = null
+    var status:Int =0
     var id_province: Int = 0
     var province_name: String? = null
     var id_districts: Int = 0
@@ -21,6 +22,7 @@ class ChurchDto  {
     var type: Int = 0
     var isShowTitle: Boolean = true
     var listChild: MutableList<ChurchDto>? = null
+
 
     constructor()
     constructor(timeMillisecond: Long, type: Int) {

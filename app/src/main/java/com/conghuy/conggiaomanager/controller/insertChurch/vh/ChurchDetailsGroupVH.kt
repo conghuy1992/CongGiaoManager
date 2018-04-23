@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.conghuy.conggiaomanager.R
 import com.conghuy.conggiaomanager.common.DateCallback
+import com.conghuy.conggiaomanager.common.Statics
 import com.conghuy.conggiaomanager.common.Utils
 import com.conghuy.conggiaomanager.controller.insertChurch.InsertChurchAdapter
 import com.conghuy.conggiaomanager.model.ChurchDto
@@ -49,18 +50,21 @@ class ChurchDetailsGroupVH(itemView: View, val context: Context, val adapter: In
         layoutThree?.removeAllViews()
         layoutFour?.removeAllViews()
 
+//        if (obj.isShowTitle) {
+            tvName?.text = obj.church_name
+            tvAddress?.text = obj.ward_name + ", " + obj.districts_name + ", " + obj.province_name
+//        }
+
+//        tvName?.setTextColor(color)
+//        tvAddress?.setTextColor(color)
+
 //        TextTimeView
         var listChild = obj.listChild
         for (i in 0 until listChild!!.size) {
-            layoutOne?.addView(TextTimeView(context, listChild[i].normal_day_morning))
-            layoutTwo?.addView(TextTimeView(context, listChild[i].normal_day_afternoon))
-            layoutThree?.addView(TextTimeView(context, listChild[i].special_day_morning))
-            layoutFour?.addView(TextTimeView(context, listChild[i].special_day_afternoon))
-        }
-
-        if (obj.isShowTitle) {
-            tvName?.text = obj.church_name
-            tvAddress?.text = obj.ward_name + ", " + obj.districts_name + ", " + obj.province_name
+            layoutOne?.addView(TextTimeView(context, listChild[i],1))
+            layoutTwo?.addView(TextTimeView(context, listChild[i],2))
+            layoutThree?.addView(TextTimeView(context, listChild[i],3))
+            layoutFour?.addView(TextTimeView(context, listChild[i],4))
         }
     }
 }

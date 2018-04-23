@@ -133,7 +133,7 @@ class AddChurchFragment : Fragment(), View.OnClickListener, AddressSelectCallBac
     fun insert() {
         var name = editText?.text.toString().trim()
         if (name == null || name.isEmpty()) {
-            Utils.showMsg(context, "input name church")
+            Utils.showMsg(context, "input church name")
             return
         }
 

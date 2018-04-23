@@ -17,7 +17,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        displayHomeAsUpEnabled(false)
+//        displayHomeAsUpEnabled(false)
         setContentView(R.layout.login_layout)
 
 //        setTitle(Utils.getMsg(context!!, R.string.login))

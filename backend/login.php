@@ -35,7 +35,8 @@ if (isset($_POST['name']) && isset($_POST['password'])) {
             $response["password"] = $result["password"];
             $response["email"]    = $result["email"];
 			$response["avatar"]    = $result["avatar"];		
-			$response["regId"]    = $result["regId"];			
+			$response["regId"]    = $result["regId"];	
+			$response["user_permission"]    = $result["user_permission"];				
             $response[common_http_status]  = 1;
             $response[common_message]  = "Login success";                        
         } else {            

@@ -26,7 +26,7 @@ if (isset($_POST['user_id'])
 	// connecting to db
 	$db = new DB_CONNECT();	
 
-	$query = "SELECT church.id as church_id, church.name as church_name,
+	$query = "SELECT church.id as church_id, church.name as church_name, church.status as status,
 			church.id_province as id_province, province.name as province_name, 
 			church.id_districts as id_districts, districts.name as districts_name,
 			church.id_ward as id_ward, ward.name as ward_name,

@@ -50,6 +50,7 @@ class LoginFragment : Fragment(), View.OnClickListener {
     }
 
     fun initView(v: View) {
+        (activity as LoginActivity).displayHomeAsUpEnabled(false)
         (activity as LoginActivity).setTitleFragment(Utils.getMsg(context!!, R.string.login))
 
         editPw = v.findViewById<View>(R.id.editPw) as EditText

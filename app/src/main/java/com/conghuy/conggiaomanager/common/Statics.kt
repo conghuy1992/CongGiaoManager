@@ -74,5 +74,8 @@ interface Statics {
 
 
         val Church_filter_province = 1
+
+        val church_pending = 0
+        val church_approve = 1
     }
 }

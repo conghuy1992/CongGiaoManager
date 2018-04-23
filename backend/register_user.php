@@ -38,7 +38,8 @@ if (isset($_POST['name']) && isset($_POST['password']) ) {
     } else {
         // no user found -> add user
         // mysql inserting a new row
-        $result = mysql_query("INSERT INTO user(name, password, email) VALUES('".mysql_real_escape_string($name)."', '".mysql_real_escape_string($password)."', '".mysql_real_escape_string($email)."')");
+        $result = mysql_query("INSERT INTO user(name, password, email, user_permission) 
+		VALUES('".mysql_real_escape_string($name)."', '".mysql_real_escape_string($password)."', '".mysql_real_escape_string($email)."','0')");
         
         // check if row inserted or not
         if ($result) {
